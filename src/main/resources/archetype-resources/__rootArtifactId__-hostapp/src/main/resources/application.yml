@@ -1,0 +1,39 @@
+PG_URL: jdbc:postgresql://localhost:5432/sample_db?useSSL=false
+PG_USER: sample_user
+PG_PASSWORD: sample_password
+
+server:
+  port: 8079
+spring:
+  application:
+    name: ${rootArtifactId}
+  # DB configuration
+  datasource:
+    url: ${PG_URL}
+    platform: POSTGRESQL
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+  kafka:
+    bootstrap-servers: localhost:29092
+
+management:
+  server:
+    port: 8077
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+cxf:
+  path: /api/v1
+  servlet.init:
+    service-list-path: /info
+  jaxrs:
+    component-scan: true
+    classes-scan-packages: org.apache.cxf.jaxrs.swagger,com.fasterxml.jackson.jaxrs.json,org.apache.cxf.jaxrs.model.wadl,${package}.mapper,org.apache.cxf.metrics
+  metrics:
+    enabled: true

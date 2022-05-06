@@ -1,0 +1,23 @@
+<application xmlns="http://wadl.dev.java.net/2009/02"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:example="http://${groupId}/model/example">
+
+    <doc xml:lang="en" title="Services"/>
+
+    <grammars>
+        <include href="data.xsd" />
+    </grammars>
+
+    <resources base="http://localhost:8080/">
+        <resource path="/example" id="ExampleService" >
+            <resource>
+                <param name="principal" style="header" />
+                <method name="GET" id="getAllData">
+                    <response>
+                        <representation mediaType="application/json" element="example:ArrayOfObject" />
+                    </response>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>
